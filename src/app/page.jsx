@@ -50,9 +50,8 @@ export default function Home() {
                       alt={item.title}
                       width={slideRef.current?.offsetWidth || 0}
                       height={slideRef.current?.offsetHeight || 0}
-                      quality={100}
-                      loading="lazy"
                       className="object-cover"
+                      unoptimized
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black z-[999px]" />
                     <div className="absolute z-50 flex-col flex bottom-[100px] left-0 gap-3 transform  right-0 p-4 max-w-6xl px-4  ml-7    text-white">
