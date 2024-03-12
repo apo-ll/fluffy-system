@@ -44,7 +44,7 @@ export default function MobileHeader() {
                 trending.results.slice(0, 11).map((item) => (
                   <div
                     key={item.id}
-                    className="embla__slide h-full flex flex-col items-center mx-auto  l" // Add shadow and shadow-white classes
+                    className="embla__slide h-full flex flex-col items-center mx-auto " // Add shadow and shadow-white classes
                     ref={slideRef}
                   >
                     <div className="image-container mb-5">
