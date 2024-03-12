@@ -7,8 +7,9 @@ import Autoplay from "embla-carousel-autoplay";
 import React, { useRef, useCallback } from "react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { Button } from "@/components/Button";
+import MobileHeader from "@/components/mobile-header";
 
-export const runtime = 'edge'
+export const runtime = "edge";
 
 export default function Home() {
   const { data: trending } = useQuery({
@@ -33,8 +34,9 @@ export default function Home() {
 
   return (
     <main className="">
-      <section className="relative lg:h-[800px] h-[400px] ">
-        <div className="w-screen absolute lg:h-[800px] h-[400px]">
+      <MobileHeader />
+      <section className="relative w-full  2xl:h-[850px] lg:h-[600px] h-[400px] lg:block hidden">
+        <div className="w-full  h-full  ">
           <div className="embla overflow-hidden h-full" ref={emblaRef}>
             <div
               className="flex flex-row items-center justify-start"
@@ -53,6 +55,7 @@ export default function Home() {
                       fill
                       className="object-cover"
                       loading="lazy"
+                      unoptimized
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black z-[999px]" />
                     <div className="absolute z-50 flex-col flex bottom-[100px] left-0 gap-3 transform  right-0 p-4 max-w-6xl px-4  ml-7    text-white">
@@ -65,7 +68,7 @@ export default function Home() {
                       <p className="font-sans truncate ...  text-xl text-left mb-4">
                         {item.overview}...
                       </p>
-                      <div className="flex flex-row gap-3 font-heading font-medium ">
+                      <div className="flex flex-row gap-3 font-heading font-medium text-xl ">
                         <Button variant="default">More Info</Button>
                         <Button variant="outline">Watch Trailer</Button>
                       </div>
@@ -83,6 +86,8 @@ export default function Home() {
     </main>
   );
 }
+
+// He;;
 
 async function Trending() {
   const res = await fetch(

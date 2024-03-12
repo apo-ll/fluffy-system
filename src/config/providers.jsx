@@ -9,6 +9,8 @@ export const Providers = ({ children }) => {
     <QueryClientProvider client={queyClient}>
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    </QueryClientProvider> 
   );
 };
+
+// Place this provider in the root of your app
