@@ -28,7 +28,7 @@ export default function Home() {
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
-  
+
   const slideRef = useRef(null);
 
   return (
@@ -48,10 +48,9 @@ export default function Home() {
                     ref={slideRef}
                   >
                     <Image
-                      src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
+                      src={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}
                       alt={item.title}
-                      width={slideRef.current?.offsetWidth || 0}
-                      height={slideRef.current?.offsetHeight || 0}
+                      fill
                       className="object-cover"
                       loading="lazy"
                     />
