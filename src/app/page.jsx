@@ -51,6 +51,7 @@ export default function Home() {
                       width={slideRef.current?.offsetWidth || 0}
                       height={slideRef.current?.offsetHeight || 0}
                       quality={100}
+                      loading="lazy"
                       className="object-cover"
                       unoptimized
                     />
