@@ -8,6 +8,8 @@ import React, { useRef, useCallback } from "react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { Button } from "@/components/Button";
 
+export const runtime = 'edge'
+
 export default function Home() {
   const { data: trending } = useQuery({
     queryKey: ["Trending"],
@@ -26,6 +28,7 @@ export default function Home() {
   const scrollNext = useCallback(() => {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
+  
   const slideRef = useRef(null);
 
   return (
@@ -45,13 +48,12 @@ export default function Home() {
                     ref={slideRef}
                   >
                     <Image
-                      key={item.id}
-                      src={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}
+                      src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
                       alt={item.title}
                       width={slideRef.current?.offsetWidth || 0}
                       height={slideRef.current?.offsetHeight || 0}
                       className="object-cover"
-                      unoptimized
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black z-[999px]" />
                     <div className="absolute z-50 flex-col flex bottom-[100px] left-0 gap-3 transform  right-0 p-4 max-w-6xl px-4  ml-7    text-white">
