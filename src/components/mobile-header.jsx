@@ -7,12 +7,17 @@ import Autoplay from "embla-carousel-autoplay";
 import React, { useRef, useCallback } from "react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { Button } from "@/components/Button";
+import { Play } from 'lucide-react';
+
+// Import necessary modules and components...
+
+
 
 export const runtime = "edge";
 
 export default function MobileHeader() {
   const { data: trending } = useQuery({
-    queryKey: ["Trending"],
+    queryKey: ["TrendingMobile"],
     queryFn: async () => await Trending(),
   });
 
@@ -21,6 +26,7 @@ export default function MobileHeader() {
     [Autoplay({ delay: 10000 })],
     [WheelGesturesPlugin()]
   );
+
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
@@ -32,38 +38,40 @@ export default function MobileHeader() {
   const slideRef = useRef(null);
 
   return (
-    <main className="drop-shadow-[0_35px_35px_rgba(255,255,255,0.30)]">
-      <section className=" rounded-t-xl mx-auto  lg:hidden block">
+    <main className="lg:hidden md:hidden block">
+      <section className="relative rounded-t-3xl mx-auto  ">
         <div className="  ">
-          <div className="embla overflow-hidden h-full" ref={emblaRef}>
-            <div
-              className="flex flex-row items-center mx-auto "
-              style={{ height: "100%" }}
-            >
+          <div className="embla overflow-hidden h-[300px]" ref={emblaRef}>
+            <div className="flex flex-row  " style={{ height: "100%" }}>
               {trending &&
                 trending.results.slice(0, 11).map((item) => (
                   <div
                     key={item.id}
-                    className="embla__slide h-full flex flex-col items-center mx-auto " // Add shadow and shadow-white classes
+                    className="embla__slide h-full flex flex-col relative  "
                     ref={slideRef}
                   >
                     <div className="image-container mb-5">
                       <Image
-                        src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
-                        alt={item.title}
-                        width={300}
-                        height={400}
-                        className="object-cover border-2 border-white/50 rounded-lg"
+                        src={`https://image.tmdb.org/t/p/original${item.details.backdrop_path}`}
+                        alt={item.details.title}
+                        fill
+                        className="object-cover  rounded-t-2xl"
                         loading="lazy"
                         unoptimized
                       />
                     </div>
-                    <div className=" flex-col flex  gap-2    text-white">
-                      <h1 className="font-heading text-2xl mb-1 text-center">{ item.name || item.title}</h1>
-                      <p className="text-center text-white-50 mb-2 font-sans">{item.media_type}</p>
-                      <div className="flex flex-row gap-3 font-heading font-medium text-sm ">
-                        <Button variant="default" className=''>More Info</Button>
-                        <Button variant="outline">Watch Trailer</Button>
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black z-[999px]" />
+                    <div className="absolute bottom-[50px] left-0 z-50 right-0 ml-5 transform  flex-col flex items-left text-left  text-white">
+                      <h1 className="font-heading text-2xl mb-1 ">
+                        {item.details.name || item.details.title}
+                      </h1>
+                      <p className="text-white/80 font-sans mb-3">{item.details.tagline}</p>
+                      <div className="flex flex-row gap-x-3 font-heading font-medium text-sm items-center ">
+                        <Button variant="default" className="flex flex-row gap-2 items-center">
+                        <Play  />
+                          <h1>Watch Trailer</h1>
+                        </Button>
+                        <Button variant="outline">More Info</Button>
                       </div>
                     </div>
                   </div>
@@ -76,8 +84,6 @@ export default function MobileHeader() {
   );
 }
 
-// He;;
-
 async function Trending() {
   const res = await fetch(
     "https://api.themoviedb.org/3/trending/all/day?language=en-US",
@@ -87,5 +93,28 @@ async function Trending() {
       },
     }
   );
-  return res.json();
+  const data = await res.json();
+
+  // Map over the results and fetch additional details
+  const trendingWithDetails = await Promise.all(
+    data.results.map(async (item) => {
+      const mediaType = item.media_type;
+      const itemId = item.id;
+
+      const detailsRes = await fetch(
+        `https://api.themoviedb.org/3/${mediaType}/${itemId}?language=en-US`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+          },
+        }
+      );
+
+      const details = await detailsRes.json();
+
+      return { ...item, details };
+    })
+  );
+
+  return { ...data, results: trendingWithDetails };
 }

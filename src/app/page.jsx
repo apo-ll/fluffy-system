@@ -8,6 +8,8 @@ import React, { useRef, useCallback } from "react";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { Button } from "@/components/Button";
 import MobileHeader from "@/components/mobile-header";
+import { Play } from 'lucide-react';
+
 
 export const runtime = "edge";
 
@@ -50,7 +52,7 @@ export default function Home() {
                     ref={slideRef}
                   >
                     <Image
-                      src={`https://image.tmdb.org/t/p/original${item.backdrop_path}`}
+                      src={`https://image.tmdb.org/t/p/original${item.details.backdrop_path}`}
                       alt={item.title}
                       fill
                       className="object-cover"
@@ -60,17 +62,17 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black z-[999px]" />
                     <div className="absolute z-50 flex-col flex bottom-[100px] left-0 gap-3 transform  right-0 p-4 max-w-6xl px-4  ml-7    text-white">
                       <h1 className="font-heading lg:text-5xl text-xl text-left mb-5">
-                        {item.original_title ||
-                          item.title ||
-                          item.original_name ||
-                          item.name}
+                        {item.details.name || item.details.title}
                       </h1>
-                      <p className="font-sans truncate ...  text-xl text-left mb-4">
-                        {item.overview}...
+                      <p className="font-sans text-white/80   text-xl text-left mb-4">
+                        {item.details.tagline}
                       </p>
-                      <div className="flex flex-row gap-3 font-heading font-medium text-xl ">
-                        <Button variant="default">More Info</Button>
-                        <Button variant="outline">Watch Trailer</Button>
+                      <div className="flex flex-row gap-3 font-heading font-medium text-lg ">
+                        <Button variant="default" className="flex flex-row gap-2 items-center">
+                        <Play  />
+                          <h1>Watch Trailer</h1>
+                        </Button>
+                        <Button variant="outline">More Info</Button>
                       </div>
                     </div>
                   </div>
@@ -98,5 +100,28 @@ async function Trending() {
       },
     }
   );
-  return res.json();
+  const data = await res.json();
+
+  // Map over the results and fetch additional details
+  const trendingWithDetails = await Promise.all(
+    data.results.map(async (item) => {
+      const mediaType = item.media_type;
+      const itemId = item.id;
+
+      const detailsRes = await fetch(
+        `https://api.themoviedb.org/3/${mediaType}/${itemId}?language=en-US`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+          },
+        }
+      );
+
+      const details = await detailsRes.json();
+
+      return { ...item, details };
+    })
+  );
+
+  return { ...data, results: trendingWithDetails };
 }
