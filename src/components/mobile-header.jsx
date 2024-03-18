@@ -13,9 +13,7 @@ import { Play } from 'lucide-react';
 
 
 
-export const runtime = "edge";
-
-export default function MobileHeader() {
+export default function MobileHeader({trending}) {
   const { data: trending } = useQuery({
     queryKey: ["TrendingMobile"],
     queryFn: async () => await Trending(),
@@ -56,8 +54,8 @@ export default function MobileHeader() {
                         alt={item.details.title}
                         fill
                         className="object-cover  rounded-t-2xl"
-                        loading="lazy"
-                        unoptimized
+                        loading="eager"
+                        quality={50}
                       />
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black z-[999px]" />
@@ -84,37 +82,4 @@ export default function MobileHeader() {
   );
 }
 
-async function Trending() {
-  const res = await fetch(
-    "https://api.themoviedb.org/3/trending/all/day?language=en-US",
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
-      },
-    }
-  );
-  const data = await res.json();
 
-  // Map over the results and fetch additional details
-  const trendingWithDetails = await Promise.all(
-    data.results.map(async (item) => {
-      const mediaType = item.media_type;
-      const itemId = item.id;
-
-      const detailsRes = await fetch(
-        `https://api.themoviedb.org/3/${mediaType}/${itemId}?language=en-US`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
-          },
-        }
-      );
-
-      const details = await detailsRes.json();
-
-      return { ...item, details };
-    })
-  );
-
-  return { ...data, results: trendingWithDetails };
-}
