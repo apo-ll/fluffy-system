@@ -13,12 +13,8 @@ import { Play } from 'lucide-react';
 
 
 
-export default function MobileHeader({trending}) {
-  const { data: trending } = useQuery({
-    queryKey: ["TrendingMobile"],
-    queryFn: async () => await Trending(),
-  });
-
+export default function MobileHeader({ trending}) {
+ 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: false },
     [Autoplay({ delay: 10000 })],

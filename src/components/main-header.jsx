@@ -10,7 +10,6 @@ import { Button } from "@/components/Button";
 import MobileHeader from "@/components/mobile-header";
 import { Play } from "lucide-react";
 
-export const runtime = 'edge'
 
 export function MainHeader() {
   const { data: trending } = useQuery({
@@ -35,7 +34,7 @@ export function MainHeader() {
 
   return (
     <main className="">
-      <MobileHeader trending={trending} />
+      <MobileHeader trending={trending}  />
       <section className="relative w-full  2xl:h-[850px] lg:h-[600px] h-[400px] lg:block hidden">
         <div className="w-full  h-full  ">
           <div className="embla overflow-hidden h-full" ref={emblaRef}>
