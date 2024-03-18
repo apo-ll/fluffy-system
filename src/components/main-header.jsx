@@ -10,7 +10,7 @@ import { Button } from "@/components/Button";
 import MobileHeader from "@/components/mobile-header";
 import { Play } from "lucide-react";
 
-export const runtime = 'experimental-edge'
+export const runtime = 'edge'
 
 export function MainHeader() {
   const { data: trending } = useQuery({
