@@ -57,7 +57,6 @@ export function MainHeader() {
                       fill
                       className="object-cover"
                       quality={50}
-                      loading="eager"
                     />
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black z-[999px]" />
                     <div className="absolute z-50 flex-col flex bottom-[100px] left-0 gap-3 transform  right-0 p-4 max-w-6xl px-4  ml-7    text-white">
