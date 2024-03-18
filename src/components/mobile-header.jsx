@@ -9,11 +9,12 @@ import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { Button } from "@/components/Button";
 import { Play } from 'lucide-react';
 
-// Import necessary modules and components...
 
-
-
-export default function MobileHeader({ trending}) {
+export default function MobileHeader() {
+  const { data: trending } = useQuery({
+    queryKey: ["Trending"],
+    queryFn: async () => await Trending(),
+  });
  
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: false },
@@ -78,4 +79,38 @@ export default function MobileHeader({ trending}) {
   );
 }
 
+async function Trending() {
+  const res = await fetch(
+    "https://api.themoviedb.org/3/trending/all/day?language=en-US",
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+      },
+    }
+  );
+  const data = await res.json();
+
+  // Map over the results and fetch additional details
+  const trendingWithDetails = await Promise.all(
+    data.results.map(async (item) => {
+      const mediaType = item.media_type;
+      const itemId = item.id;
+
+      const detailsRes = await fetch(
+        `https://api.themoviedb.org/3/${mediaType}/${itemId}?language=en-US`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+          },
+        }
+      );
+
+      const details = await detailsRes.json();
+
+      return { ...item, details };
+    })
+  );
+
+  return { ...data, results: trendingWithDetails };
+}
 

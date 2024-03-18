@@ -34,7 +34,7 @@ export function MainHeader() {
 
   return (
     <main className="">
-      <MobileHeader trending={trending}  />
+      <MobileHeader  />
       <section className="relative w-full  2xl:h-[850px] lg:h-[600px] h-[400px] lg:block hidden">
         <div className="w-full  h-full  ">
           <div className="embla overflow-hidden h-full" ref={emblaRef}>
