@@ -15,7 +15,8 @@ export default function MobileHeader({ trending }) {
             >
               <div className="image-container mb-5">
                 <Image
-                  src={`https://image.tmdb.org/t/p/original${item.details.backdrop_path}`}
+                  src={`
+                 https://res.cloudinary.com/drshb6sh5/image/fetch/f_auto,q_auto/https://image.tmdb.org/t/p/original${item.details.backdrop_path}`}
                   alt={item.details.title}
                   fill
                   className="object-cover  rounded-t-2xl"

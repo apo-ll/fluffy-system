@@ -25,8 +25,8 @@ export async function MainHeader() {
                 >
                   <Image
                     src={`
-                https://image.tmdb.org/t/p/original${item.details.backdrop_path}`}
-                    alt="Movie Poster"
+                https://res.cloudinary.com/drshb6sh5/image/fetch/f_auto,q_auto/https://image.tmdb.org/t/p/original${item.details.backdrop_path}`}
+                    alt={item.details.name || item.details.title}
                     fill
                     className="object-cover rounded-t-xl"
                     quality={50}
