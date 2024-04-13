@@ -20,7 +20,7 @@ export default function MobileHeader({ trending }) {
                   alt={item.details.title}
                   fill
                   className="object-cover  rounded-t-2xl"
-                  loading="eager"
+                  unoptimized
                   quality={50}
                 />
               </div>
