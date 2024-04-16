@@ -32,3 +32,16 @@ export async function Trending() {
 
   return { ...data, results: trendingWithDetails };
 }
+
+export async function PopularMovies() {
+  const res = await fetch(
+    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1",
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+      },
+    }
+  );
+
+  return res.json();
+}

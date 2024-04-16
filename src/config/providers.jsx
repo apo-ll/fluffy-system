@@ -3,14 +3,13 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-export const Providers = ({ children }) => {
-  const queyClient = new QueryClient();
+export function Providers({ children }) {
+  const queryClent = new QueryClient();
+
   return (
-    <QueryClientProvider client={queyClient}>
+    <QueryClientProvider client={queryClent}>
       {children}
       <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider> 
+    </QueryClientProvider>
   );
-};
-
-// Place this provider in the root of your app
+}

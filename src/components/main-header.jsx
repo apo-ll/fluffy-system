@@ -5,7 +5,7 @@ import MobileHeader from "@/components/mobile-header";
 import { Play } from "lucide-react";
 import { MainNav } from "./main-nav";
 import { Carousel } from "./carousel";
-import { Trending } from "@/config/homepage";
+import { Trending } from "@/config/tmdb";
 
 export async function MainHeader() {
   const trending = await Trending();
