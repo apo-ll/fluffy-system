@@ -8,10 +8,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)'],
-        'heading': ['var(--font-urbanist)'],
-      }
+        sans: ["var(--font-urbanist)"],
+        heading: ["var(--font-urbanist)"],
+      },
     },
   },
-  plugins: [],
+  plugins: [require("@vidstack/react/tailwind.cjs")],
 };

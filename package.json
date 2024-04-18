@@ -15,6 +15,7 @@
     "@tanstack/react-query-devtools": "^5.25.0",
     "@tanstack/react-query-next-experimental": "^5.25.0",
     "@upstash/redis": "^1.28.4",
+    "@vidstack/react": "next",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "embla-carousel-autoplay": "^8.0.0",
