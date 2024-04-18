@@ -13,7 +13,7 @@ export async function MainHeader() {
   return (
     <main className="">
       <MobileHeader trending={trending} />
-      <section className="relative w-full  2xl:h-[850px] lg:h-[600px] h-[400px] lg:block hidden">
+      <section className="relative w-full  2xl:h-[850px] lg:h-screen h-[400px] lg:block hidden">
         <MainNav />
         <div className="w-full  h-full ">
           <Carousel>
