@@ -6,6 +6,7 @@ import { Play } from "lucide-react";
 import { MainNav } from "./main-nav";
 import { Carousel } from "./carousel";
 import { Trending } from "@/config/tmdb";
+import Link from "next/link";
 
 export async function MainHeader() {
   const trending = await Trending();
@@ -28,7 +29,7 @@ export async function MainHeader() {
                 https://res.cloudinary.com/drshb6sh5/image/fetch/f_auto,q_auto/https://image.tmdb.org/t/p/original${item.details.backdrop_path}`}
                     alt={item.details.name || item.details.title}
                     fill
-                    className="object-cover rounded-t-xl"
+                    className="object-cover w-full h-full rounded-t-xl"
                     quality={50}
                     unoptimized
                   />
@@ -41,6 +42,11 @@ export async function MainHeader() {
                       {item.details.tagline}
                     </p>
                     <div className="flex flex-row gap-3 font-heading font-medium text-lg ">
+                      <Link
+                        href={`/info/${item.media_type}/${item.details.id}`}
+                      >
+                        <Button variant="outline">More Info</Button>
+                      </Link>
                       <Button
                         variant="default"
                         className="flex flex-row gap-2 items-center"
@@ -48,7 +54,6 @@ export async function MainHeader() {
                         <Play />
                         <h1>Watch Trailer</h1>
                       </Button>
-                      <Button variant="outline">More Info</Button>
                     </div>
                   </div>
                 </div>

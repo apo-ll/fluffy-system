@@ -20,19 +20,6 @@ export default async function Home() {
       <MainHeader />
 
       <CarouselMenu />
-      <div className="w-2/3 outline outline-white/50 outline-1 rounded-lg">
-        <MediaPlayer
-          title="Sam Rivera & Limoblaze - Lord & Savior (Official Music Video)"
-          src="https://www.youtube.com/watch?v=GYEyYAG3TQM?autoplay=1"
-          aspectRatio="16/9"
-          load="eager"
-          autoplay
-        >
-          <MediaProvider />
-          <DefaultAudioLayout icons={defaultLayoutIcons} />
-          <DefaultVideoLayout icons={defaultLayoutIcons} />
-        </MediaPlayer>
-      </div>
     </div>
   );
 }
