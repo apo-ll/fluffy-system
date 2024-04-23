@@ -9,7 +9,7 @@ import { Button } from "./Button";
 export function Carousel({ children }) {
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: false },
-    [Autoplay({ delay: 10000 })],
+    [Autoplay({ delay: 8000 })],
     [WheelGesturesPlugin()]
   );
   const scrollPrev = useCallback(() => {
