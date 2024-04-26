@@ -1,10 +1,6 @@
-"use client";
-
 import Image from "next/image";
 import { YouTubeEmbed } from "@next/third-parties/google";
 import { useQuery } from "@tanstack/react-query";
-import { Trailer } from "@/components/Trailer";
-import { useState } from "react";
 
 export default function Page({ params }) {
   const { data: item } = useQuery({
@@ -19,18 +15,6 @@ export default function Page({ params }) {
         }
       );
 
-      return res.json();
-    },
-  });
-
-  const { data: trailers } = useQuery({
-    queryKey: ["Trailer"],
-    queryFn: async function trailers() {
-      const res = await fetch(
-        `https://api.kinocheck.de/${
-          params.media_type === "movie" ? "movies" : "shows"
-        }?tmdb_id=${params.id}&language=en&categories=Trailer`
-      );
       return res.json();
     },
   });
@@ -89,10 +73,11 @@ const TrailerMedia = async ({ media_type, id, title }) => {
   return (
     <div className="w-[720px] h-[405px] ">
       {data && data.results.length > 0 && (
-        <Trailer
-          id={data && data.results.find((item) => item.type === "Trailer").key}
-          title={data.results.find((item) => item.type === "Trailer").name}
-          width={900}
+        <YouTubeEmbed
+          videoid={
+            data && data.results.find((item) => item.type === "Trailer").key
+          }
+          params="autoplay=1&controls=1"
         />
       )}
     </div>
