@@ -43,7 +43,7 @@ export async function PopularMovies() {
     }
   );
 
-   const data = await res.json();
+  const data = await res.json();
 
   const trendingWithDetails = await Promise.all(
     data.results.map(async (item) => {
@@ -61,13 +61,30 @@ export async function PopularMovies() {
 
       const details = await detailsRes.json();
 
-      return { ...item, details };
+      // Fetching images for the movie
+      const imagesRes = await fetch(
+        `https://api.themoviedb.org/3/movie/${itemId}/images?language=en`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
+          },
+        }
+      );
+
+      const imagesData = await imagesRes.json();
+
+      // Assuming you want to include all images available for the movie
+      const images = imagesData.posters.map((poster) => ({
+        url: `https://image.tmdb.org/t/p/original${poster.file_path}`,
+        // You can include additional properties if needed
+      }));
+
+      return { ...item, details, images };
     })
   );
 
   return { ...data, results: trendingWithDetails };
 }
-
 
 export async function PopularShows() {
   const res = await fetch(
@@ -79,7 +96,7 @@ export async function PopularShows() {
     }
   );
 
-   const data = await res.json();
+  const data = await res.json();
 
   const trendingWithDetails = await Promise.all(
     data.results.map(async (item) => {

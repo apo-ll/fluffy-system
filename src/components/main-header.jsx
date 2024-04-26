@@ -43,7 +43,9 @@ export async function MainHeader() {
                     </h1>
                     <div className="flex flex-row items-center gap-3 mb-4">
                       {item.details.genres.map((items) => (
-                        <h3 className="text-white font-sans">{items.name}</h3>
+                        <h1 key={item.id} className="text-white font-sans">
+                          {items.name}
+                        </h1>
                       ))}{" "}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
