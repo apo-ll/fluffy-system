@@ -60,27 +60,22 @@ const SearchComponent = () => {
   const searchResultsFiltered = handleSearch(searchQuery);
 
   return (
-    <div className="flex flex-col gap-10 mx-auto w-[900px] font-sans">
-      <label
-        for="input-group-1"
-        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-      >
-        Your Email
-      </label>
+    <div className="flex flex-col gap-10 mx-auto w-[900px] font-sans mt-28">
       <div class="relative mb-6 w-full">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-          <Search className="stroke-white" />
+          <Search className="stroke-black" />
         </div>
         <input
           type="text"
-          placeholder="Search..."
-          class="bg-gray-950 border border-gray-300 h-[70px] text-xl text-white rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  "
+          placeholder="What movie/tv trailer do you want to watch?"
+          class="bg-white border placeholder-black/50 font-medium border-gray-300 h-[70px] text-xl text-black rounded-full focus:ring-2 focus:ring-white block w-full pl-16 p-2.5  "
           value={searchQuery}
           onChange={handleSearchInputChange}
         />
       </div>
+
       {isLoading && (
-        <div className="w-screen h-screen mx-auto flex justify-center items-center">
+        <div className=" mx-auto flex justify-center items-center">
           <TailSpin
             visible={true}
             height="100"

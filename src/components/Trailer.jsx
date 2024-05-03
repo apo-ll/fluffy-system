@@ -27,6 +27,7 @@ export function Trailer({ id, title }) {
       aspectRatio="16/9"
       onProviderChange={onProviderChange}
       canGoogleCast={true}
+      className="rounded-lg"
     >
       <MediaProvider />
       <DefaultVideoLayout icons={defaultLayoutIcons} />

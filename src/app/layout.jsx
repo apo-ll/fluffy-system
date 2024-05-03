@@ -3,6 +3,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import { inter, urbanist } from "@/config/fonts";
 import { Providers } from "@/config/providers";
+import { MainNav } from "@/components/main-nav";
 
 export const metadata = {
   title: "Cinematic",
@@ -13,8 +14,9 @@ export default function RootLayout({ children, trailerModal }) {
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${urbanist.variable} antialiased bg-black`}
+        className={`${inter.variable} ${urbanist.variable} antialiased min-h-screen bg-black`}
       >
+        <MainNav />
         <Providers>
           {children} {trailerModal}
         </Providers>

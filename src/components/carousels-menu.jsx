@@ -103,7 +103,7 @@ const CarouselMenu = ({ name, data }) => {
                   alt={item.name}
                   width={250}
                   height={150}
-                  className="grow-0 shrink-0 lg:w-11/12 rounded-lg hover:outline hover:outline-2 transition-all hover:transition-all hover:ease-in-out hover:duration-300 hover:outline-white "
+                  className="grow-0 shrink-0 lg:w-11/12 rounded-lg hover:outline hover:outline-2 hover:outline-offset-2 transition-all hover:transition-all hover:ease-in-out hover:duration-300 hover:outline-white "
                   src={`https://res.cloudinary.com/drshb6sh5/image/fetch/f_auto,q_auto/https://image.tmdb.org/t/p/original${item.poster_path}`}
                 />
                 <h1 className="font-heading w-full  lg:text-lg sm:text-sm text-sm">
