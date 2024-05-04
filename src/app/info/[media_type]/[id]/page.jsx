@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Trailer } from "@/components/Trailer";
+import { Disqus } from "@/components/disqus";
 
 export default async function Page({ params }) {
   const res = await fetch(
@@ -10,9 +11,7 @@ export default async function Page({ params }) {
       },
     }
   );
-
   const item = await res.json();
-
   return (
     <div className="text-white relative  ">
       <Image
@@ -37,6 +36,9 @@ export default async function Page({ params }) {
             <p className="font-sans text-white/80 truncted  lg:text-lg text-sm text-left mb-4">
               {item && item.overview}
             </p>
+          </div>
+          <div>
+            <Disqus id={params.id} title={item.title} />
           </div>
         </div>{" "}
       </div>
